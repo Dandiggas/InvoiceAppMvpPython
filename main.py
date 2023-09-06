@@ -37,7 +37,7 @@ def main():
 
     #Calculate total 
     total_price = sum(price for _, price in services)
-    total_cost = f"£{total_price}"
+    total_cost = f"{total_price}"
     
 
     pdf_path = createpdf(invoice_number, date_input, user_details, account_details, client_name, client_address, services, total_cost, pdf_name="tuto1.pdf")
