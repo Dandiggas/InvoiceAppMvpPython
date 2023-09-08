@@ -10,18 +10,18 @@ def createpdf(invoice_number, date_input, user_details, account_details, client_
 
     class MyPDF(FPDF):
         def header(self):
-            self.set_font("Arial", "B", 16)
+            self.set_font("helvetica", "B", 16)
             self.cell(0, 10, "Invoice", 0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
             
         def footer(self):
             self.set_y(-15)
-            self.set_font("Arial", "I", 8)
+            self.set_font("helvetica", "I", 8)
             self.cell(0, 10, f"Page {self.page_no()}", 0, new_x=XPos.RIGHT, new_y=YPos.TOP)
 
     pdf = MyPDF("P", "mm", "Letter")
     pdf.add_page()
 
-    pdf.set_font("Arial", "", 12)
+    pdf.set_font("helvetica", "", 12)
 
     # Invoice Details Section
     pdf.ln(10)

@@ -50,8 +50,15 @@ def main():
     Regards,
     Daniel Adekugbe
     """
+    print("Please check invoice")
+    invoice_check = input("Would you like me to email the invoice to the client, yes or no? ") 
+    invoice_check.strip()   
+    if invoice_check == "yes":
+        send_email(email_message, pdf_path, client_email)
+    else:
+        ("Please recreate invoice")
         
-    send_email(email_message, pdf_path, client_email)
+    return f"thank you for using this app"
 
 
 
