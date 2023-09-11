@@ -24,7 +24,8 @@ def main():
         client_name = input("Enter client name: ")
         client_address = input("Enter client address: ")
         client_email = input("Enter client email: ")
-        pdf_name = input("Enter pdf name with no spaces: ")
+        pdf_name_1 = input("Enter pdf name with no spaces: ") 
+        pdf_name = pdf_name_1 + ".pdf"
 
         #Input multiple services 
 
