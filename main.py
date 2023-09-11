@@ -24,6 +24,8 @@ def main():
         client_name = input("Enter client name: ")
         client_address = input("Enter client address: ")
         client_email = input("Enter client email: ")
+        pdf_name_1 = input("Enter pdf name with no spaces: ") 
+        pdf_name = pdf_name_1 + ".pdf"
 
         #Input multiple services 
 
@@ -41,7 +43,7 @@ def main():
         total_cost = f"{total_price}"
         
 
-        pdf_path = createpdf(invoice_number, date_input, user_details, account_details, client_name, client_address, services, total_cost, pdf_name="tuto1.pdf")
+        pdf_path = createpdf(invoice_number, date_input, user_details, account_details, client_name, client_address, services, total_cost, pdf_name)
 
         email_message = """ 
         Hi,

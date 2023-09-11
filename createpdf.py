@@ -2,7 +2,7 @@ from fpdf import FPDF, XPos, YPos
 import os
 
 
-def createpdf(invoice_number, date_input, user_details, account_details, client_name, client_address, services, total_cost, pdf_name="tuto1.pdf"):
+def createpdf(invoice_number, date_input, user_details, account_details, client_name, client_address, services, total_cost, pdf_name):
     LMARGIN = 10
     CENTER = 105  # Halfway = 210 / 2
     RMARGIN = 200
@@ -59,7 +59,7 @@ def createpdf(invoice_number, date_input, user_details, account_details, client_
     pdf.cell(40, LINE_HEIGHT, f"£{total_cost}", border=1, new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="R")
 
     desktop_path = os.path.expanduser("~/Desktop")
-    pdf_path = os.path.join(desktop_path, "tuto1.pdf")
+    pdf_path = os.path.join(desktop_path, pdf_name)
     pdf.output(pdf_path)
 
     print("Your invoice has been created")
