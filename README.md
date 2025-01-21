@@ -81,10 +81,3 @@ Services: Design: 100, Development: 200, Testing: 50.
 - Use app-specific passwords for Gmail
 - Store API keys securely
 
-## License
-
-[Your License Here]
-
-## Contributing
-
-[Your Contributing Guidelines Here]
