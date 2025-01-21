@@ -12,7 +12,7 @@ def createpdf(
     services,
     total_cost,
     pdf_name,
-):
+) -> str:
     LMARGIN = 10
     CENTER = 105  # Halfway = 210 / 2
     RMARGIN = 200
@@ -112,7 +112,10 @@ def createpdf(
         new_y=YPos.NEXT,
     )
 
-    for serve, price in services:
+    for i in services:
+        serve = i["description"]
+        price = i["price"]
+
         pdf.cell(100, LINE_HEIGHT, serve, border=1)
         pdf.cell(
             40,

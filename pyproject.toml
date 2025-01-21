@@ -1,0 +1,12 @@
+[project]
+name = "invoiceappmvppython"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fpdf2>=2.8.1",
+    "fpdf>=1.7.2",
+    "ruff>=0.7.0",
+    "tkinter",
+]
