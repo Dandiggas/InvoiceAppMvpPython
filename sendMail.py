@@ -3,6 +3,7 @@ import smtplib
 from email.message import EmailMessage
 import os
 from createpdf import createpdf
+import certifi
 
 
 def send_email(message, pdf_path, client_email):
@@ -24,7 +25,7 @@ def send_email(message, pdf_path, client_email):
     receiver = client_email  # Replace with the recipient's email address
     subject = "Invoice"  # Email subject
 
-    context = ssl.create_default_context()
+    context = ssl.create_default_context(cafile=certifi.where())
 
     email = EmailMessage()
     email.set_content(message)

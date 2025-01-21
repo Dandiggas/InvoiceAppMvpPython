@@ -1,6 +1,4 @@
-from fpdf import FPDF, XPos, YPos
 import datetime
-import os
 from sendMail import send_email
 from createpdf import createpdf
 

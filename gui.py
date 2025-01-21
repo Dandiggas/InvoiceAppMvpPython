@@ -4,10 +4,15 @@ from createpdf import createpdf
 from sendMail import send_email
 import datetime
 
+
 def preview_invoice():
-    # Get inputs from Tkinter 
+    # Get inputs from Tkinter
     invoice_number = invoice_number_entry.get()
-    date_input = date_entry.get() if date_entry.get() else datetime.date.today().strftime("%d-%m-%Y")
+    date_input = (
+        date_entry.get()
+        if date_entry.get()
+        else datetime.date.today().strftime("%d-%m-%Y")
+    )
     user_details = user_details_entry.get()
     account_details = account_details_entry.get()
     client_name = client_name_entry.get()
@@ -18,13 +23,13 @@ def preview_invoice():
     # Get services and prices
     services = []
     for service_frame in service_frames:
-        service_desc = service_frame.children['service_desc_entry'].get()
-        service_price = float(service_frame.children['service_price_entry'].get())
+        service_desc = service_frame.children["service_desc_entry"].get()
+        service_price = float(service_frame.children["service_price_entry"].get())
         services.append((service_desc, service_price))
 
     # Ensure the invoice preview text widget is editable
     invoice_preview_text.config(state=tk.NORMAL)
-    invoice_preview_text.delete('1.0', tk.END)  
+    invoice_preview_text.delete("1.0", tk.END)
 
     # Construct the preview text
     preview_text = f"Invoice Number: {invoice_number}\nDate: {date_input}\n\nUser Details:\n{user_details}\nAccount Details:\n{account_details}\n\nClient Name: {client_name}\nClient Address:\n{client_address}\n\nServices:\n"
@@ -34,16 +39,19 @@ def preview_invoice():
 
     # Update the text widget with the preview text
     invoice_preview_text.insert(tk.END, preview_text)
-    invoice_preview_text.config(state=tk.DISABLED) 
+    invoice_preview_text.config(state=tk.DISABLED)
 
-    send_email_button.config(state=tk.NORMAL) 
-
+    send_email_button.config(state=tk.NORMAL)
 
 
 def generate_pdf():
     # Gather data from entry widgets
     invoice_number = invoice_number_entry.get()
-    date_input = date_entry.get() if date_entry.get() else datetime.date.today().strftime("%d-%m-%Y")
+    date_input = (
+        date_entry.get()
+        if date_entry.get()
+        else datetime.date.today().strftime("%d-%m-%Y")
+    )
     user_details = user_details_entry.get()
     account_details = account_details_entry.get()
     client_name = client_name_entry.get()
@@ -54,8 +62,8 @@ def generate_pdf():
     # Gather services and prices
     services = []
     for service_frame in service_frames:
-        service_desc = service_frame.children['service_desc_entry'].get()
-        service_price = float(service_frame.children['service_price_entry'].get())
+        service_desc = service_frame.children["service_desc_entry"].get()
+        service_price = float(service_frame.children["service_price_entry"].get())
         services.append((service_desc, service_price))
 
     # Calculate total price
@@ -81,7 +89,11 @@ def generate_pdf():
 
 def send_invoice():
     invoice_number = invoice_number_entry.get()
-    date_input = date_entry.get() if date_entry.get() else datetime.date.today().strftime("%d-%m-%Y")
+    date_input = (
+        date_entry.get()
+        if date_entry.get()
+        else datetime.date.today().strftime("%d-%m-%Y")
+    )
     user_details = user_details_entry.get()
     account_details = account_details_entry.get()
     client_name = client_name_entry.get()
@@ -92,8 +104,8 @@ def send_invoice():
     # Fetch services and prices
     services = []
     for service_frame in service_frames:
-        service_desc = service_frame.children['service_desc_entry'].get()
-        service_price = float(service_frame.children['service_price_entry'].get())
+        service_desc = service_frame.children["service_desc_entry"].get()
+        service_price = float(service_frame.children["service_price_entry"].get())
         services.append((service_desc, service_price))
 
     # Generate PDF
@@ -122,26 +134,28 @@ def send_invoice():
     send_email(email_message, pdf_path, client_email)
     messagebox.showinfo("Success", "Invoice sent successfully!")
 
+
 def add_service_frame():
     service_frame = tk.Frame(service_container)
-    service_frame.pack(fill='x', expand=True)
+    service_frame.pack(fill="x", expand=True)
 
-    tk.Label(service_frame, text="Service Description:").pack(side='left')
-    tk.Entry(service_frame, name='service_desc_entry').pack(side='left')
+    tk.Label(service_frame, text="Service Description:").pack(side="left")
+    tk.Entry(service_frame, name="service_desc_entry").pack(side="left")
 
-    tk.Label(service_frame, text="Price:").pack(side='left')
-    tk.Entry(service_frame, name='service_price_entry').pack(side='left')
+    tk.Label(service_frame, text="Price:").pack(side="left")
+    tk.Entry(service_frame, name="service_price_entry").pack(side="left")
 
     service_frames.append(service_frame)
 
 
 def labeled_entry(parent, label_text, **kwargs):
     frame = tk.Frame(parent)
-    frame.pack(fill='x', expand=True)
-    tk.Label(frame, text=label_text).pack(side='left')
+    frame.pack(fill="x", expand=True)
+    tk.Label(frame, text=label_text).pack(side="left")
     entry = tk.Entry(frame, **kwargs)
-    entry.pack(side='right', expand=True, fill='x')
+    entry.pack(side="right", expand=True, fill="x")
     return entry
+
 
 # Tkinter window setup
 root = tk.Tk()
@@ -159,24 +173,28 @@ pdf_name_entry = labeled_entry(root, "PDF Name (without extension):")
 
 # Service entries container
 service_container = tk.Frame(root)
-service_container.pack(fill='both', expand=True)
-service_frames = []  
+service_container.pack(fill="both", expand=True)
+service_frames = []
 
 # Invoice preview text area
 invoice_preview_text = scrolledtext.ScrolledText(root, state=tk.DISABLED, height=10)
-invoice_preview_text.pack(fill='both', expand=True)
+invoice_preview_text.pack(fill="both", expand=True)
 
 # Buttons
 add_service_button = tk.Button(root, text="Add Service", command=add_service_frame)
 add_service_button.pack()
 
-preview_invoice_button = tk.Button(root, text="Preview Invoice", command=preview_invoice)
+preview_invoice_button = tk.Button(
+    root, text="Preview Invoice", command=preview_invoice
+)
 preview_invoice_button.pack()
 
 generate_pdf_button = tk.Button(root, text="Generate PDF", command=generate_pdf)
 generate_pdf_button.pack()
 
-send_email_button = tk.Button(root, text="Send Invoice", command=send_invoice, state=tk.DISABLED)
+send_email_button = tk.Button(
+    root, text="Send Invoice", command=send_invoice, state=tk.DISABLED
+)
 send_email_button.pack()
 
 # Start Tkinter event loop
