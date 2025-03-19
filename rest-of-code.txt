@@ -1,48 +1,4 @@
-import json
-import datetime
-from openai import OpenAI
-from createpdf import createpdf
-from sendMail import send_email
-from dotenv import load_dotenv
-import os
-
-# Load environment variables
-load_dotenv()
-
-# Initialize OpenAI client
-client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
-
-
-class InvoiceAgent:
-    def __init__(self):
-        pass
-
-    def extract_invoice_details(self, prompt):
-        """
-        Use OpenAI's GPT to extract invoice details from the user's prompt.
-        """
-        try:
-            response = client.chat.completions.create(
-                model="gpt-4o",
-                messages=[
-                    {
-                        "role": "system",
-                        "content": (
-                            """You are an AI assistant that extracts invoice details from user prompts.\n
-                            Services need to be a list of objects with description and price in GBP\n
-                            {"services": [{"description": "Design", "price": 100}]}.\n
-                            Return the data as a valid JSON object. Ensure that all lists and values are JSON-compliant."""
-                        ),
-                    },
-                    {"role": "user", "content": prompt},
-                ],
-            )
-            return response.choices[0].message.content
-        except Exception as e:
-            print(f"Error during OpenAI API call: {e}")
-            return None
-
-    def parse_extracted_details(self, extracted_text):
+def parse_extracted_details(self, extracted_text):
         """
         Parse the extracted details into a structured format.
         """
@@ -52,7 +8,8 @@ class InvoiceAgent:
 
             # Replace Python tuple syntax with JSON-compatible list syntax
             extracted_text = (
-                extracted_text.replace("(", "[").replace(")", "]").replace("json", "")
+                extracted_text.replace(
+                    "(", "[").replace(")", "]").replace("json", "")
             )
 
             print("Cleaned JSON String:", extracted_text)  # For debugging
@@ -76,7 +33,8 @@ class InvoiceAgent:
             invoice_number = details.get("invoice_number", "INV-001")
             date_input = details.get("date", formatted_date)
             user_details = details.get("user_details", "Your Company Name")
-            account_details = details.get("account_details", "Bank: XYZ, Acc: 123456")
+            account_details = details.get(
+                "account_details", "Bank: XYZ, Acc: 123456")
             client_name = details.get("client_name", "John Doe")
             client_address = details.get("client_address", "123 Main St, City")
             client_email = details.get("client_email", "john.doe@example.com")
