@@ -112,11 +112,16 @@ def createpdf(
         new_y=YPos.NEXT,
     )
 
-    for i in services:
-        serve = i["description"]
-        price = i["price"]
+    for service in services:
+        # Check if service is a tuple (from CLI) or dict (from AI agent)
+        if isinstance(service, tuple):
+            description, price = service
+        else:
+            # Assume it's a dictionary with 'description' and 'price' keys
+            description = service["description"]
+            price = service["price"]
 
-        pdf.cell(100, LINE_HEIGHT, serve, border=1)
+        pdf.cell(100, LINE_HEIGHT, description, border=1)
         pdf.cell(
             40,
             LINE_HEIGHT,
