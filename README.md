@@ -5,7 +5,6 @@ A versatile Python application for generating and sending professional invoices.
 ## Features
 
 - **Multiple Interfaces**:
-  - GUI interface for user-friendly invoice creation
   - Command-line interface for quick invoice generation
   - AI-powered agent for natural language invoice creation
 
@@ -61,7 +60,6 @@ Services: Design: 100, Development: 200, Testing: 50.
 
 ## Project Structure
 
-- `gui.py`: Graphical user interface implementation
 - `main.py`: Command-line interface implementation
 - `agent_ai.py`: AI-powered invoice generation agent
 - `createpdf.py`: PDF generation functionality
@@ -70,7 +68,6 @@ Services: Design: 100, Development: 200, Testing: 50.
 ## Dependencies
 
 - fpdf2: PDF generation
-- tkinter: GUI implementation
 - openai: AI agent functionality
 - python-dotenv: Environment variable management
 - smtplib/ssl: Email functionality
