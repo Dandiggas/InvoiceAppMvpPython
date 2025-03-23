@@ -1,87 +1,80 @@
-# Invoice App MVP
+# Invoice App with RAG-Enhanced Chatbot
 
-A versatile Python application for generating and sending professional invoices. The app provides multiple interfaces including a GUI, CLI, and an AI-powered agent for natural language invoice generation.
+This application helps create and manage invoices with a chatbot assistant that uses Retrieval-Augmented Generation (RAG) to remember client details from previous invoices.
 
 ## Features
 
-- **Multiple Interfaces**:
-  - Command-line interface for quick invoice generation
-  - AI-powered agent for natural language invoice creation
+- **PDF Invoice Generation**: Create professional PDF invoices with client and service details
+- **Email Sending**: Send invoices directly to clients via email
+- **RAG-Enhanced Chatbot**: Automatically retrieves client information from previous invoices
+- **PDF Parsing**: Extract client information, invoice details, and service information from existing PDF invoices
 
-- **Core Functionality**:
-  - Generate professional PDF invoices
-  - Add multiple services with descriptions and prices
-  - Preview invoices before generation
-  - Automatic email sending to clients
-  - Customizable invoice details and formatting
+## Components
 
-## Installation
+- `chat_bot.py`: The main chatbot application using LangChain and LangGraph with Claude 3.7 Sonnet
+- `pdf_parser.py`: Module for extracting data from PDF invoices and storing it in a ChromaDB vector database
+- `createpdf.py`: Module for creating PDF invoices
+- `sendMail.py`: Module for sending invoices via email
+- `config.py`: Configuration settings for the application
+- `process_invoices.py`: Script to process all invoices in the invoices directory
+- `reprocess_invoices.py`: Script to reprocess all invoices with improved extraction logic
+- `test_pdf_parser.py`: Script to test the PDF parser on sample invoices
 
-1. Ensure you have Python 3.13+ installed
-2. Clone this repository
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
+## Setup
+
+1. Install dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
+
+2. Process existing invoices:
+   ```
+   python process_invoices.py
+   ```
+
+3. Run the chatbot:
+   ```
+   python chat_bot.py
+   ```
+
+## Using the RAG-Enhanced Chatbot
+
+When you mention a client name in your message, the chatbot will automatically retrieve information about that client from your previous invoices. This includes:
+
+- Client name and address
+- Previous services and prices
+- Invoice history
+
+For example, you can say:
+```
+I want to create an invoice for ALR Music
 ```
 
-4. Set up environment variables in a `.env` file:
-```
-USERNAMEEMAIL=your-email@gmail.com
-PASSWORD=your-app-specific-password
-OPENAI_API_KEY=your-openai-api-key  # Only needed for AI agent
-```
+The chatbot will recognize "ALR Music" as a client name, retrieve information about this client, and use it to help you create a new invoice with minimal input.
 
-## Usage
+## Reprocessing Invoices
 
-### GUI Interface
-Run the graphical interface:
-```bash
-python gui.py
+If you add new invoices or want to update the database with improved extraction logic, you can run:
+
+```
+python reprocess_invoices.py
 ```
 
-### Command Line Interface
-Run the CLI version:
-```bash
-python main.py
-```
+This will clear the existing database and reprocess all invoices in the invoices directory.
 
-### AI Agent
-Use the AI-powered agent for natural language invoice generation:
-```bash
-python agent_ai.py
-```
+## Environment Variables
 
-Example prompt:
-```
-Generate an invoice for John Doe. 
-Client email: client@example.com 
-Services: Design: 100, Development: 200, Testing: 50.
-```
+The application uses the following environment variables:
 
-## Project Structure
+- `USER_DETAILS`: Your company name and address (used in invoice generation)
+- `ACCOUNT_DETAILS`: Your bank account details (used in invoice generation)
+- `USERNAMEEMAIL`: Your email address (used for sending invoices)
+- `PASSWORD`: Your email password (used for sending invoices)
 
-- `main.py`: Command-line interface implementation
-- `agent_ai.py`: AI-powered invoice generation agent
-- `createpdf.py`: PDF generation functionality
-- `sendMail.py`: Email sending functionality
+## Customization
 
-## Dependencies
+You can customize the application by:
 
-- fpdf2: PDF generation
-- openai: AI agent functionality
-- python-dotenv: Environment variable management
-- smtplib/ssl: Email functionality
-
-## Security Notes
-
-- Never commit your `.env` file or expose sensitive credentials
-- Use app-specific passwords for Gmail
-- Store API keys securely
-
-## License
-
-[Your License Here]
-
-## Contributing
-
-[Your Contributing Guidelines Here]
+- Adding more client names to the `known_clients` list in `chat_bot.py`
+- Modifying the service extraction patterns in `chat_bot.py`
+- Updating the system prompt in `chat_bot.py`
